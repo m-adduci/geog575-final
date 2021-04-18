@@ -34,7 +34,14 @@
 	}).addTo(map);
 
     
-    L.geoJSON(Michigan_TopCities).addTo(map)
+    L.geoJSON(Michigan_TopCities, {
+        style: function (feature) {
+        return {"polygon-fill": "#fff",
+                "polygon-opacity": 0.75}
+                },
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.NAME);
+    }}).addTo(map);
     </script>
 </body>
 </html>
