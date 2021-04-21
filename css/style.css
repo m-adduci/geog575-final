@@ -1,1 +1,10 @@
+<<<<<<< HEAD
+body { margin:0; padding:0; }
+#map { position: absolute; top:0; bottom:0; right:0; left:0; }
+
+.leaflet-popup-content {
+    	width:auto !important;
+	}
+=======
 #mapid { width: 600px; height: 400px;}
+>>>>>>> a9f4f982c9b1db9912802e2afdc3cc4a1da2e4fe
