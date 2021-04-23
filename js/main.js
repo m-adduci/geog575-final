@@ -82,7 +82,7 @@ $.getJSON("data/geojson/counties.geojson", function (data){
       }
     },
     onEachFeature: function( feature, layer) {
-      layer.bindPopup(feature.properties.NAME) // change to match your geojson property labels
+      layer.bindPopup("County:" + feature.properties.NAME ) // change to match your geojson property labels
       
     }
  
@@ -90,3 +90,29 @@ $.getJSON("data/geojson/counties.geojson", function (data){
   controlLayers.addOverlay(geoJsonLayer, "County Data (can add attributes later)");  // insert your 'Title' to add to legend
   
 });
+
+$.getJSON("data/AttractionPoints.geojson", function (data){
+  var geoJsonLayer = L.geoJson(data, {
+    pointToLayer: function( feature, layer) {
+      var styleForThisFeature = attractionStyle(feature);
+      var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
+      return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
+      + 
+       "<a href=feature.properties.location_url>Website</a>" ) // change to match your geojson property labels
+      
+    }
+ 
+  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, "Top Attraction");  // insert your 'Title' to add to legend
+  
+});
+
+function attractionStyle(feature) {
+  return {
+      radius: 1.5,
+      fillColor: "#ff7800",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 1
+  }
+}
