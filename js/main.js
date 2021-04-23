@@ -58,7 +58,7 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
       return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
       + 
-       "<a href=feature.properties.location_url>Website</a>" ) // change to match your geojson property labels
+       "<a href=" + feature.properties.location_url + ">Website</a>" ) // change to match your geojson property labels
       
     }
  
