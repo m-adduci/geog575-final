@@ -1,10 +1,33 @@
-<<<<<<< HEAD
 body { margin:0; padding:0; }
 #map { position: absolute; top:0; bottom:0; right:0; left:0; }
 
 .leaflet-popup-content {
     	width:auto !important;
 	}
-=======
 #mapid { width: 600px; height: 400px;}
->>>>>>> a9f4f982c9b1db9912802e2afdc3cc4a1da2e4fe
+
+.info {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,1);
+	box-shadow: 0 0 15px rgba(0,0,0,0);
+	border-radius: 5px;
+  }
+  .info h3 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	color: #000;
+  }
+  .legend {
+	text-align: left;
+	line-height: 18px;
+	color: #555;
+  }
+  .legend i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.9;
+  }
