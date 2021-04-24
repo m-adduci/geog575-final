@@ -54,11 +54,15 @@ controlLayers.addBaseLayer(Stamen_TonerLite, 'Stamen TonerLite');
 $.getJSON("data/AttractionPoints.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     pointToLayer: function( feature, layer) {
+      var attractionPhoto = feature.properties.location_photo_url;
       var styleForThisFeature = attractionStyle(feature);
       var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
       return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
       + 
-       "<a href=" + feature.properties.location_url + ">Website</a>" ) // change to match your geojson property labels
+       "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" +
+       "<a href=" + feature.properties.location_photo_url + ">Image</a>" + 
+       '<img src =' + attractionPhoto + '/>' ) 
+       // change to match your geojson property labels
       
     }
  
