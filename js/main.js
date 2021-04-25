@@ -60,16 +60,16 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
       + 
        "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" +
-       "<a href=" + feature.properties.location_photo_url + ">Image</a>" + 
-       '<img src =' + attractionPhoto + '>' ).openPopup() 
-       // change to match your geojson property labels
-      
-    }
- 
-  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+       "<a href=" + feature.properties.location_photo_url + ">Image</a>" + "\n" +
+       "<p>" + '<img src =' + attractionPhoto + '>' + "</p>") //add thumbnail of photo URL within layer field
+    }}).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Top Attraction");  // insert your 'Title' to add to legend
   
 });
+
+//anchor the popup for the attraction popup
+
+var myIcon = L.divIcon({ popupAnchor: [0,-30]});
 
 function attractionStyle(feature) {
   return {
@@ -107,7 +107,10 @@ $.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
     style: style,
     onEachFeature: onEachFeature
   }).addTo(map);
+  controlLayers.addOverlay(geoJsonLayer, "CBSAS Attractiveness");
 });
+
+
 
 // Edit ranges and colors to match your data; see http://colorbrewer.org
 // Any values not listed in the ranges below displays as the last color
