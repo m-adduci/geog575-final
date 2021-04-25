@@ -58,10 +58,8 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       var styleForThisFeature = attractionStyle(feature);
       var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
       return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
-      + 
-       "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" +
-       "<a href=" + feature.properties.location_photo_url + ">Image</a>" + "\n" +
-       "<p>" + '<img src =' + attractionPhoto + '>' + "</p>") //add thumbnail of photo URL within layer field
+      +  "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" + "\n" +
+       "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Top Attraction");  // insert your 'Title' to add to legend
   
