@@ -61,7 +61,7 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       + 
        "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" +
        "<a href=" + feature.properties.location_photo_url + ">Image</a>" + 
-       '<img src =' + attractionPhoto + '/>' ) 
+       '<img src =' + attractionPhoto + '>' ).openPopup() 
        // change to match your geojson property labels
       
     }
