@@ -57,11 +57,10 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       var attractionPhoto = feature.properties.location_photo_url;
       var styleForThisFeature = attractionStyle(feature);
       var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
-      return featureForThisPoint.bindPopup(feature.properties.location_name + "\n" 
-      +  "<a href=" + feature.properties.location_url + ">Website</a>" + "\n" + "\n" +
+      return featureForThisPoint.bindPopup("<a href=" + feature.properties.location_url + ">" + feature.properties.location_name + "</a>" + "\n" + "\n" +
        "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Top Attraction");  // insert your 'Title' to add to legend
+  controlLayers.addOverlay(geoJsonLayer, "Top Attraction").bringToFront();  // insert your 'Title' to add to legend
   
 });
 
@@ -72,7 +71,7 @@ var myIcon = L.divIcon({ popupAnchor: [0,-30]});
 function attractionStyle(feature) {
   return {
       radius: 1.5,
-      fillColor: "#4C7300",
+      fillColor: "#fbf001",
       weight: 1,
       opacity: 1,
       fillOpacity: 1
