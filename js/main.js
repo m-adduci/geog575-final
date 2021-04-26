@@ -49,6 +49,11 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
 })
 controlLayers.addBaseLayer(Stamen_TonerLite, 'Stamen TonerLite');
 
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+})
+controlLayers.addBaseLayer(Esri_WorldImagery, 'Esri World Imagery');
+
 //Polygon Overlay for Tourist Attractions from https://www.Michigan.org
 
 $.getJSON("data/AttractionPoints.geojson", function (data){
