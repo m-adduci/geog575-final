@@ -188,20 +188,21 @@ info.addTo(map);
 var legend = L.control({position: 'topright'});
 legend.onAdd = function (map) {
   var div = L.DomUtil.create('div', 'info legend'),
-    grades = [0, 1, 2, 3, 4],
-    labels = [],
-    from, to;
-  for (var i = 0; i < grades.length; i++) {
-    from = grades[i];
-    to = grades[i + 1];
-    labels.push(
-      '<i style="background:' + getColor(from + 1) + '"></i> ' +
-      from + (to ? '&ndash;' + to : '+') + '');
+    labels = ['<strong>Attractiveness Index Value</strong><br>'],
+    categories = ['5','4','3','2','1'];
+    for (var i = 0; i < categories.length; i++) {
+      div.innerHTML += 
+      labels.push(
+          '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+      (categories[i] ? categories[i] : '+'));
+
   }
   div.innerHTML = labels.join('<br>');
-  return div;
+return div;
 };
 legend.addTo(map);
+
+
 
 /// Use in info.update if GeoJSON data contains null values, and if so, displays "--"
 function checkNull(val) {
