@@ -5,6 +5,8 @@
     <link rel="shortcut icon" href="data/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <!-- Load bootstrap stylesheet -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <!-- Load Leaflet: instructions at http://leafletjs.com/download.html -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -29,8 +31,24 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- div to display map; add more for title and caption if desired -->
-    <div id="map"></div>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a>Menu item 1</a>
+            </li>
+            <li>
+              <a>Menu item 2</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div id="map"></div>
+    </div>
+    <script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </body>
 </html>

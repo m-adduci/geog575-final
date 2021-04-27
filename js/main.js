@@ -1,3 +1,6 @@
+jQuery(document).ready(main)
+
+function main(){
 // set up the map center and zoom level
 var map = L.map('map', {
   center: [44.0165, -85.1550],
@@ -230,3 +233,6 @@ function comma(val){
   }
   return val;
 }
+}
+
+
