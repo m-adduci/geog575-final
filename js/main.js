@@ -85,12 +85,13 @@ function attractionStyle(feature) {
 
 //Polygon Overlay for Top 20 Michigan AirBnB Destinations
 
-$.getJSON("data/geojson/Michigan_TopCities.geojson", function (data){
+TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     style: function (feature) {
       return {
-        'color': 'blue',
+        'color': 'red',
         'weight': 2,
+        'fillOpacity': 0.7
       }
     },
     onEachFeature: function( feature, layer) {

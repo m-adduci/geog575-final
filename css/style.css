@@ -39,3 +39,8 @@ body { margin:0; padding:0; }
 	  color:black;
 	  font-weight: bolder;
   }
+
+	.TopCities{
+		color:red;
+		opacity: 1;
+	}
