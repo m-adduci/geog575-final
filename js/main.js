@@ -26,7 +26,7 @@ var controlLayers = L.control.layers( null, null, {
   collapsed: false // false = open by default
 }).addTo(map);
 
-// optional Coordinate Control for map construction
+// Coordinate Control feature for off-the-grid attractions
 var c = new L.Control.Coordinates();
 c.addTo(map);
 map.on('click', function(e) {
@@ -68,7 +68,7 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       return featureForThisPoint.bindPopup("<a href=" + feature.properties.location_url + ">" + feature.properties.location_name + "</a>" + "\n" + "\n" +
        "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Top Attraction").bringToFront();  // insert your 'Title' to add to legend
+  controlLayers.addOverlay(geoJsonLayer, "Attractions").bringToFront();  // insert your 'Title' to add to legend
   
 });
 
@@ -103,7 +103,7 @@ TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data)
     }
  
   }).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Michigan's Top 20 AirBnB Markets");  // insert your 'Title' to add to legend
+  controlLayers.addOverlay(geoJsonLayer, "Michigan's Highest-Grossing AirBnB Markets");  // insert your 'Title' to add to legend
   
 })
 
@@ -113,7 +113,7 @@ $.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
     style: style,
     onEachFeature: onEachFeature
   }).addTo(map);
-  controlLayers.addOverlay(geoJsonLayer, "CBSAS Attractiveness");
+  controlLayers.addOverlay(geoJsonLayer, "CBSAs");
 });
 
 
@@ -183,7 +183,7 @@ info.update = function (props) {
 
   this._div.innerHTML +=  (props
     ? '<b>' + props.NAME + '</b><br />' + value + '</b><br />'
-      + (props.attractions_index ? 'Attractiveness Index Value: ' + props.attractions_index : '')
+      + (props.attractions_index ? 'CBSA Attractiveness Index: ' + props.attractions_index : '')
     : 'Hover over CBSA Boundaries');
 };
 info.addTo(map);
@@ -192,7 +192,7 @@ info.addTo(map);
 var legend = L.control({position: 'topright'});
 legend.onAdd = function (map) {
   var div = L.DomUtil.create('div', 'info legend'),
-    labels = ['<strong>Attractiveness Index Value</strong><br>'],
+    labels = ['<strong>CBSA Attractiveness Index</strong><br>'],
     categories = ['5','4','3','2','1'];
     for (var i = 0; i < categories.length; i++) {
       div.innerHTML += 
