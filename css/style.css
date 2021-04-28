@@ -57,3 +57,13 @@ html, body, #container {
 	  font-weight: bolder;
   }
 
+.navbar-logo{
+	display:block;
+	width: 107px;
+	height: 50px;
+	background: url(../img/pureMichiganLogoDark_xsmall_.png) no-repeat;
+	text-indent:100%;
+	white-space:nowrap;
+	overflow:hidden;
+	margin:0 auto;
+}
