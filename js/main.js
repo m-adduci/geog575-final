@@ -65,6 +65,35 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 })
 controlLayers.addBaseLayer(Esri_WorldImagery, 'Esri World Imagery');
 
+//Polygon Overlay for Hotels & Motels from https://www.Michigan.org
+
+$.getJSON("data/LodgingPoints.geojson", function (data){
+  var geoJsonLayer = L.geoJson(data, {
+    pointToLayer: function( feature, layer) {
+      var lodgingPhoto = feature.properties.location_photo_url;
+      var styleForThisFeature = lodgingStyle(feature);
+      var featureForThisPoint = L.circleMarker(layer, styleForThisFeature);
+      return featureForThisPoint.bindPopup("<a href=" + feature.properties.location_url + ">" + feature.properties.location_name + "</a>" + "\n" + "\n" +
+       "<p>" + '<img src =' + lodgingPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
+    }}).addTo(map);  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, "Hotels & Motels").bringToFront();  // insert your 'Title' to add to legend
+  
+});
+
+//anchor the popup for the attraction popup
+
+var myIcon = L.divIcon({ popupAnchor: [0,-30]});
+
+function lodgingStyle(feature) {
+  return {
+      radius: 1.5,
+      fillColor: "#green",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 1
+  }
+}
+
 //Polygon Overlay for Tourist Attractions from https://www.Michigan.org
 
 $.getJSON("data/AttractionPoints.geojson", function (data){
