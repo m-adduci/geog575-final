@@ -1,4 +1,19 @@
+jQuery(document).ready(app)
 jQuery(document).ready(main)
+
+function app(){
+  //add landings from clicks for the about tab
+  $("#about-btn").click(function() {
+    $("#aboutModal").modal("show");
+    $(".navbar-collapse.in").collapse("hide");
+    return false;
+  });
+  $("#nav-btn").click(function() {
+    $(".navbar-collapse").collapse("toggle");
+    return false;
+  });
+
+}
 
 function main(){
 // set up the map center and zoom level
@@ -17,15 +32,7 @@ L.Control.geocoder({position: "topleft"}).addTo(map);
 
 L.control.scale().addTo(map);
 
-$("#about-btn").click(function() {
-  $("#aboutModal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-$("#nav-btn").click(function() {
-  $(".navbar-collapse").collapse("toggle");
-  return false;
-});
+
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
