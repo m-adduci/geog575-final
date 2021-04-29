@@ -17,7 +17,15 @@ L.Control.geocoder({position: "topleft"}).addTo(map);
 
 L.control.scale().addTo(map);
 
-
+$("#about-btn").click(function() {
+  $("#aboutModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+$("#nav-btn").click(function() {
+  $(".navbar-collapse").collapse("toggle");
+  return false;
+});
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
