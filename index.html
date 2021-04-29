@@ -89,44 +89,7 @@
               </div>
               <div id="charts" class="tab-pane fade text-danger">
                 <canvas id="myChart" width="100" height="100"></canvas>
-                <script>
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Traverse City', 'Detroit', 'Ann Arbor', 'Grand Rapids', 'Holland', 'South Haven'],
-                        datasets: [{
-                            label: 'Total AirBNB Tax Revenue',
-                            data: [15348, 13966, 8665, 5541, 5298, 4531],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-                </script>
-                
+                <script type="text/javascript" src="js/myChart.js"></script>
               </div>
             </div>
           </div>
