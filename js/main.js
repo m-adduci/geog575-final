@@ -242,7 +242,7 @@ info.update = function (props) {
   this._div.innerHTML +=  (props
     ? '<b>' + props.NAME + '</b><br />' + value + '</b><br />'
       + (props.attractions_index ? 'CBSA Attractiveness Index: ' + props.attractions_index : '')
-    : 'Hover over CBSA Boundaries');
+    : "With CBSA's on: Hover over CBSA Boundaries");
 };
 info.addTo(map);
 
