@@ -1,19 +1,4 @@
-jQuery(document).ready(app)
 jQuery(document).ready(main)
-
-function app(){
-  //add landings from clicks for the about tab
-  $("#about-btn").click(function() {
-    $("#aboutModal").modal("show");
-    $(".navbar-collapse.in").collapse("hide");
-    return false;
-  });
-  $("#nav-btn").click(function() {
-    $(".navbar-collapse").collapse("toggle");
-    return false;
-  });
-
-}
 
 function main(){
 // set up the map center and zoom level
@@ -32,7 +17,15 @@ L.Control.geocoder({position: "topleft"}).addTo(map);
 
 L.control.scale().addTo(map);
 
-
+$("#about-btn").click(function() {
+  $("#aboutModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+$("#nav-btn").click(function() {
+  $(".navbar-collapse").collapse("toggle");
+  return false;
+});
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
@@ -87,7 +80,7 @@ $.getJSON("data/LodgingPoints.geojson", function (data){
   
 });
 
-//anchor the popup for the attraction popup
+//anchor the popup for the lodging popup
 
 var myIcon = L.divIcon({ popupAnchor: [0,-30]});
 
@@ -148,6 +141,27 @@ TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data)
  
   }).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Michigan's Highest-Grossing AirBnB Markets");  // insert your 'Title' to add to legend
+  
+})
+
+//Polygon Overlay for Zones Without Lodging
+
+TopCities = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'green',
+        'weight': 2,
+        'fillOpacity': 0.7
+      }
+    },
+    onEachFeature: function( feature, layer) {
+      layer.bindPopup(feature.properties.ZonesWithoutLodging) // change to match your geojson property labels
+      
+    }
+ 
+  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, "Opportunity Zones: No Lodging (5 mile radius)");  // insert your 'Title' to add to legend
   
 })
 
