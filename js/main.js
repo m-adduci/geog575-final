@@ -3,7 +3,7 @@ jQuery(document).ready(main)
 function main(){
 // set up the map center and zoom level
 var map = L.map('map', {
-  center: [44.0165, -85.1550],
+  center: [44.82, -85.1550],
   zoom: 7,
   zoomControl: true,
   scrollWheelZoom: true
@@ -77,7 +77,7 @@ $.getJSON("data/LodgingPoints.geojson", function (data){
        "<p>" + '<img src =' + lodgingPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Hotels & Motels").bringToFront();  // insert your 'Title' to add to legend
-  
+  geoJsonLayer.bringToFront();
 });
 
 //anchor the popup for the lodging popup
@@ -106,7 +106,7 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
        "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Attractions").bringToFront();  // insert your 'Title' to add to legend
-  
+  geoJsonLayer.bringToFront();
 });
 
 //anchor the popup for the attraction popup
@@ -140,7 +140,7 @@ TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data)
     }
  
   }).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Michigan's Highest-Grossing AirBnB Markets");  // insert your 'Title' to add to legend
+  controlLayers.addOverlay(geoJsonLayer, "Michigan's Top Markets for Airbnb Tax Revenue");  // insert your 'Title' to add to legend
   
 })
 
@@ -160,8 +160,9 @@ TopCities = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
       
     }
  
-  }).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Opportunity Zones: No Lodging (5 mile radius)");  // insert your 'Title' to add to legend
+  }).addTo(map);
+  geoJsonLayer.bringToBack();
+  controlLayers.addOverlay(geoJsonLayer, "Opportunity Zones: No Hotels & Motels (5 mi. radius)");  // insert your 'Title' to add to legend
   
 })
 
@@ -172,6 +173,7 @@ $.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
     onEachFeature: onEachFeature
   }).addTo(map);
   controlLayers.addOverlay(geoJsonLayer, "CBSAs");
+  geoJsonLayer.bringToBack();
 });
 
 
@@ -235,14 +237,14 @@ info.onAdd = function (map) {
 
 // Edit info box text and variables to match those in GeoJSON data
 info.update = function (props) {
-  this._div.innerHTML = '<h3>Number of Attractions by CBSA</h3>';
+  this._div.innerHTML = '<h4><b>Number of Attractions by CBSA<b></h4>';
 
   var value = props && props.attractions_count ? 'Attractions present in CBSA: '+props.attractions_count: 'No data'
 
   this._div.innerHTML +=  (props
     ? '<b>' + props.NAME + '</b><br />' + value + '</b><br />'
       + (props.attractions_index ? 'CBSA Attractiveness Index: ' + props.attractions_index : '')
-    : "With CBSA's on: Hover over CBSA Boundaries");
+    : "With CBSAs 'ON': Hover over CBSA Boundary");
 };
 info.addTo(map);
 

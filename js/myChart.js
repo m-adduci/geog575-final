@@ -30,7 +30,7 @@ async function chart(){
         data: {
             labels: xlabels,
             datasets: [{
-                label: 'Total AirBNB Tax Revenue',
+                label: 'Total Airbnb Guest-Arrivals (July-September, 2019)',
                 data: ynum,
                 backgroundColor: [
                     'rgba(228, 241, 254, 1)'
@@ -42,11 +42,14 @@ async function chart(){
             }]
         },
         options: {
+            
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 }
             }
         }
+   
     });
+    
     }
