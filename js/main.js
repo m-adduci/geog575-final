@@ -76,8 +76,7 @@ $.getJSON("data/LodgingPoints.geojson", function (data){
       return featureForThisPoint.bindPopup("<a href=" + feature.properties.location_url + ">" + feature.properties.location_name + "</a>" + "\n" + "\n" +
        "<p>" + '<img src =' + lodgingPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Hotels & Motels").bringToFront();  // insert your 'Title' to add to legend
-  geoJsonLayer.bringToFront();
+  controlLayers.addOverlay(geoJsonLayer, "Hotels & Motels") ;  // insert your 'Title' to add to legend ;
 });
 
 //anchor the popup for the lodging popup
@@ -105,8 +104,8 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
       return featureForThisPoint.bindPopup("<a href=" + feature.properties.location_url + ">" + feature.properties.location_name + "</a>" + "\n" + "\n" +
        "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, "Attractions").bringToFront();  // insert your 'Title' to add to legend
-  geoJsonLayer.bringToFront();
+  controlLayers.addOverlay(geoJsonLayer, "Attractions") ;  // insert your 'Title' to add to legend
+
 });
 
 //anchor the popup for the attraction popup
@@ -139,14 +138,14 @@ TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data)
       
     }
  
-  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+  }) // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Michigan's Top Markets for Airbnb Tax Revenue");  // insert your 'Title' to add to legend
   
 })
 
 //Polygon Overlay for Zones Without Lodging
 
-TopCities = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
+opportunityZones = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     style: function (feature) {
       return {
@@ -160,8 +159,7 @@ TopCities = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
       
     }
  
-  }).addTo(map);
-  geoJsonLayer.bringToBack();
+  })
   controlLayers.addOverlay(geoJsonLayer, "Opportunity Zones: No Hotels & Motels (5 mi. radius)");  // insert your 'Title' to add to legend
   
 })
@@ -171,9 +169,9 @@ $.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
   geoJsonLayer = L.geoJson(data, {
     style: style,
     onEachFeature: onEachFeature
-  }).addTo(map);
+  })
   controlLayers.addOverlay(geoJsonLayer, "CBSAs");
-  geoJsonLayer.bringToBack();
+
 });
 
 
