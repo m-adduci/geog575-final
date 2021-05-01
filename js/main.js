@@ -85,7 +85,7 @@ var myIcon = L.divIcon({ popupAnchor: [0,-30]});
 
 function lodgingStyle(feature) {
   return {
-      radius: 1.5,
+      radius: 2.5,
       fillColor: "#green",
       weight: 1,
       opacity: 1,
@@ -114,7 +114,7 @@ var myIcon = L.divIcon({ popupAnchor: [0,-30]});
 
 function attractionStyle(feature) {
   return {
-      radius: 1.5,
+      radius: 2.5,
       fillColor: "#fbf001",
       weight: 1,
       opacity: 1,
@@ -155,7 +155,6 @@ opportunityZones = $.getJSON("data/ZonesWithoutLodging.geojson", function (data)
       }
     },
     onEachFeature: function( feature, layer) {
-      layer.bindPopup(feature.properties.ZonesWithoutLodging) // change to match your geojson property labels
       
     }
  
