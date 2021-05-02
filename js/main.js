@@ -1,7 +1,21 @@
+//Call the function of the script
 jQuery(document).ready(main)
 
 function main(){
-// set up the map center and zoom level
+
+//script to sublement about button
+  $("#about-btn").click(function() {
+    $("#aboutModal").modal("show");
+    $(".navbar-collapse.in").collapse("hide");
+    return false;
+  });
+  $("#nav-btn").click(function() {
+    $(".navbar-collapse").collapse("toggle");
+    return false;
+  });
+
+  
+  // set up the map center and zoom level
 var map = L.map('map', {
   center: [44.82, -85.1550],
   zoom: 7,
@@ -13,19 +27,12 @@ var map = L.map('map', {
 map.attributionControl
 .setPrefix('View <a href="https://github.com/m-adduci/geog575-final">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 
+//Add search elemnt to map
 L.Control.geocoder({position: "topleft"}).addTo(map);
 
+//Add a scale bar to the bottom of the map
 L.control.scale().addTo(map);
 
-$("#about-btn").click(function() {
-  $("#aboutModal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-$("#nav-btn").click(function() {
-  $(".navbar-collapse").collapse("toggle");
-  return false;
-});
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
@@ -41,32 +48,32 @@ map.on('click', function(e) {
 	c.setCoordinates(e);
 });
 
-/* BASELAYERS */
-// use common baselayers below, delete, or add more with plain JavaScript from http://leaflet-extras.github.io/leaflet-providers/preview/
-// .addTo(map); -- suffix displays baselayer by default
-// controlLayers.addBaseLayer (variableName, 'label'); -- adds baselayer and label to legend; omit if only one baselayer with no toggle desired
+///Add basemap layers
 var EsriWorldGrayCanvas = new L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
 	maxZoom: 16
 }).addTo(map); // adds layer by default
 controlLayers.addBaseLayer(EsriWorldGrayCanvas, 'Esri World Gray Canvas');
 
-var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+var Stamen_TerrainBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}{r}.{ext}', {
 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	subdomains: 'abcd',
 	minZoom: 0,
-	maxZoom: 20,
+	maxZoom: 18,
 	ext: 'png'
-})
-controlLayers.addBaseLayer(Stamen_TonerLite, 'Stamen TonerLite');
+});
+controlLayers.addBaseLayer(Stamen_TerrainBackground, 'Stamen TonerLite');
 
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 })
 controlLayers.addBaseLayer(Esri_WorldImagery, 'Esri World Imagery');
+//
+
+
+///Input project geojsons//
 
 //Polygon Overlay for Hotels & Motels from https://www.Michigan.org
-
 $.getJSON("data/LodgingPoints.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     pointToLayer: function( feature, layer) {
@@ -79,22 +86,7 @@ $.getJSON("data/LodgingPoints.geojson", function (data){
   controlLayers.addOverlay(geoJsonLayer, "Hotels & Motels") ;  // insert your 'Title' to add to legend ;
 });
 
-//anchor the popup for the lodging popup
-
-var myIcon = L.divIcon({ popupAnchor: [0,-30]});
-
-function lodgingStyle(feature) {
-  return {
-      radius: 2.5,
-      fillColor: "#green",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 1
-  }
-}
-
 //Polygon Overlay for Tourist Attractions from https://www.Michigan.org
-
 $.getJSON("data/AttractionPoints.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     pointToLayer: function( feature, layer) {
@@ -105,46 +97,24 @@ $.getJSON("data/AttractionPoints.geojson", function (data){
        "<p>" + '<img src =' + attractionPhoto +  '>' + "</p>") //add thumbnail of photo URL within layer field
     }}).addTo(map);  // insert ".addTo(map)" to display layer by default
   controlLayers.addOverlay(geoJsonLayer, "Attractions") ;  // insert your 'Title' to add to legend
-
 });
 
-//anchor the popup for the attraction popup
-
-var myIcon = L.divIcon({ popupAnchor: [0,-30]});
-
-function attractionStyle(feature) {
-  return {
-      radius: 2.5,
-      fillColor: "#fbf001",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 1
-  }
-}
-
-//Polygon Overlay for Top 20 Michigan AirBnB Destinations
-
-TopCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data){
+//Polygon Overlay for Top 20 Michigan Airbnb Destinations
+topCities = $.getJSON("data/geojson/Michigan_TopCities.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     style: function (feature) {
       return {
         'color': 'red',
         'weight': 2,
         'fillOpacity': 0.7
-      }
-    },
+      }},
     onEachFeature: function( feature, layer) {
-      layer.bindPopup(feature.properties.NAME) // change to match your geojson property labels
-      
-    }
- 
-  }) // insert ".addTo(map)" to display layer by default
+      layer.bindPopup(feature.properties.NAME) // change to match your geojson property label 
+    }}) 
   controlLayers.addOverlay(geoJsonLayer, "Michigan's Top Markets for Airbnb Tax Revenue");  // insert your 'Title' to add to legend
-  
 })
 
 //Polygon Overlay for Zones Without Lodging
-
 opportunityZones = $.getJSON("data/ZonesWithoutLodging.geojson", function (data){
   var geoJsonLayer = L.geoJson(data, {
     style: function (feature) {
@@ -153,25 +123,85 @@ opportunityZones = $.getJSON("data/ZonesWithoutLodging.geojson", function (data)
         'weight': 2,
         'fillOpacity': 0.7
       }
-    },
-    onEachFeature: function( feature, layer) {
-      
-    }
- 
-  })
+    },onEachFeature: function( feature, layer) { 
+    }})
   controlLayers.addOverlay(geoJsonLayer, "Opportunity Zones: No Hotels & Motels (5 mi. radius)");  // insert your 'Title' to add to legend
-  
 })
 
 // Edit to upload GeoJSON data file from local directory
-$.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
-  geoJsonLayer = L.geoJson(data, {
+cbsaAttractiveness = $.getJSON("data/cbsas_attractiveness_index.geojson", function (data) {
+  var geoJsonLayer = L.geoJson(data, {
     style: style,
     onEachFeature: onEachFeature
   })
   controlLayers.addOverlay(geoJsonLayer, "CBSAs");
-
 });
+//End of Geojson Data input
+
+///Add functions and additional script variables
+function attractionStyle(feature) {
+  return {
+      radius: 2.45,
+      fillColor: "#fb5d01",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 1
+  }
+}
+
+function lodgingStyle(feature) {
+  return {
+      radius: 2.45,
+      fillColor: "#green",
+      outlineColor: "#white",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 1
+  }
+}
+
+// Creates an info box on the map
+var info = L.control({position: 'topright'});
+info.onAdd = function (map) {
+  this._div = L.DomUtil.create('div', 'info');
+  this.update();
+  return this._div;
+};
+
+// Edit grades in legend to match the ranges cutoffs inserted above
+var legend = L.control({position: 'topright'});
+legend.onAdd = function (map) {
+  var div = L.DomUtil.create('div', 'info legend'),
+    labels = ['<strong>CBSA Attractiveness Index</strong><br>'],
+    categories = ['5','4','3','2','1'];
+    for (var i = 0; i < categories.length; i++) {
+      div.innerHTML += 
+      labels.push(
+          '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+      (categories[i] ? categories[i] : '+'));
+
+  }
+  div.innerHTML = labels.join('<br>');
+return div;
+};
+legend.addTo(map);
+
+
+
+
+// Edit info box text and variables to match those in GeoJSON data
+info.update = function (props) {
+  this._div.innerHTML = '<h4><b>Number of Attractions by CBSA<b></h4>';
+
+  var value = props && props.attractions_count ? 'Attractions present in CBSA: '+props.attractions_count: 'No data'
+
+  this._div.innerHTML +=  (props
+    ? '<b>' + props.NAME + '</b><br />' + value + '</b><br />'
+      + (props.attractions_index ? 'CBSA Attractiveness Index: ' + props.attractions_index : '')
+    : "With CBSAs 'ON': Hover over CBSA Boundary");
+};
+info.addTo(map);
+
 
 
 
@@ -223,48 +253,6 @@ function onEachFeature(feature, layer) {
     click: highlightFeature
   });
 }
-
-// Creates an info box on the map
-var info = L.control({position: 'topright'});
-info.onAdd = function (map) {
-  this._div = L.DomUtil.create('div', 'info');
-  this.update();
-  return this._div;
-};
-
-// Edit info box text and variables to match those in GeoJSON data
-info.update = function (props) {
-  this._div.innerHTML = '<h4><b>Number of Attractions by CBSA<b></h4>';
-
-  var value = props && props.attractions_count ? 'Attractions present in CBSA: '+props.attractions_count: 'No data'
-
-  this._div.innerHTML +=  (props
-    ? '<b>' + props.NAME + '</b><br />' + value + '</b><br />'
-      + (props.attractions_index ? 'CBSA Attractiveness Index: ' + props.attractions_index : '')
-    : "With CBSAs 'ON': Hover over CBSA Boundary");
-};
-info.addTo(map);
-
-// Edit grades in legend to match the ranges cutoffs inserted above
-var legend = L.control({position: 'topright'});
-legend.onAdd = function (map) {
-  var div = L.DomUtil.create('div', 'info legend'),
-    labels = ['<strong>CBSA Attractiveness Index</strong><br>'],
-    categories = ['5','4','3','2','1'];
-    for (var i = 0; i < categories.length; i++) {
-      div.innerHTML += 
-      labels.push(
-          '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
-      (categories[i] ? categories[i] : '+'));
-
-  }
-  div.innerHTML = labels.join('<br>');
-return div;
-};
-legend.addTo(map);
-
-
-
 /// Use in info.update if GeoJSON data contains null values, and if so, displays "--"
 function checkNull(val) {
   if (val != null || val == "NaN") {
@@ -291,5 +279,3 @@ function comma(val){
   return val;
 }
 }
-
-
