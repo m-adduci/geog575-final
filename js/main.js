@@ -52,7 +52,7 @@ map.on('click', function(e) {
 var EsriWorldGrayCanvas = new L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
 	maxZoom: 16
-}).addTo(map); // adds layer by default
+}); // adds layer by default
 controlLayers.addBaseLayer(EsriWorldGrayCanvas, 'Esri World Gray Canvas');
 
 var Stamen_TerrainBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}{r}.{ext}', {
@@ -61,7 +61,7 @@ var Stamen_TerrainBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastl
 	minZoom: 0,
 	maxZoom: 18,
 	ext: 'png'
-});
+}).addTo(map);
 controlLayers.addBaseLayer(Stamen_TerrainBackground, 'Stamen TonerLite');
 
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
