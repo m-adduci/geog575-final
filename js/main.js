@@ -17,7 +17,7 @@ function main(){
   
   // set up the map center and zoom level
 var map = L.map('map', {
-  center: [44.38, -85.1550],
+  center: [44.18, -85.1550],
   zoom: 8,
   zoomControl: true,
   scrollWheelZoom: true
@@ -141,7 +141,7 @@ cbsaAttractiveness = $.getJSON("data/cbsas_attractiveness_index.geojson", functi
 ///Add functions and additional script variables
 function attractionStyle(feature) {
   return {
-      radius: 2.45,
+      radius: 6,
       fillColor: "#fb5d01",
       weight: 1,
       opacity: 1,
@@ -151,7 +151,7 @@ function attractionStyle(feature) {
 
 function lodgingStyle(feature) {
   return {
-      radius: 2.45,
+      radius: 6,
       fillColor: "#green",
       outlineColor: "#white",
       weight: 1,
