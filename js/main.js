@@ -61,12 +61,12 @@ var Stamen_TerrainBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastl
 	minZoom: 0,
 	maxZoom: 18,
 	ext: 'png'
-}).addTo(map);
+});
 controlLayers.addBaseLayer(Stamen_TerrainBackground, 'Stamen TonerLite');
 
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-})
+}).addTo(map)
 controlLayers.addBaseLayer(Esri_WorldImagery, 'Esri World Imagery');
 //
 
